@@ -1,1 +1,40 @@
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <h1>MÁV Infó</h1>
+    <span class="menu-spacer"></span>
+    <div>
+      <a mat-button [routerLink]="'/incidents'"> Incidents </a>
+      <a mat-button [routerLink]="'/map'"> Map </a>
+      <a mat-button [routerLink]="'/about'"> About </a>
+
+    </div>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+      <span style="font-size: 12px;">Önnek megyünk!</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+
+        <a mat-list-item [routerLink]="'/cat1'"> Category 1 </a>
+        <a mat-list-item [routerLink]="'/cat2'"> Category 2 </a>
+        <a mat-list-item [routerLink]="'/cat3'"> Category 3 </a>
+        <a mat-list-item [routerLink]="'/cat4'"> Category 4 </a>
+        <a mat-list-item [routerLink]="'/cat5'"> Category 5 </a>
+        <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Bezár</a>
+
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div style="height: 88vh;">
+
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

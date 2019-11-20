@@ -10,8 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [IncidentsComponent],
   imports: [
     CommonModule,
-    IncidentRoutingModule,
-    HttpClientModule
+    IncidentRoutingModule
   ]
 })
 export class IncidentModule { }
