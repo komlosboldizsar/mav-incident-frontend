@@ -20,7 +20,8 @@ export class IncidentsComponent implements OnInit {
         this.incidents = result;
       },
       error => {
-        alert("Something went wrong");
+        alert("Something went wrong, error: ");
+        console.log(error);
       }
     );
   }

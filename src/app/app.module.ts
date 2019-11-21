@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule } from '@angular/material';
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,9 +28,11 @@ import { AboutComponent } from './about/about.component';
     MatListModule,
     MatButtonModule,
     MatIconModule,
+    MatSliderModule,
     AgmCoreModule.forRoot({
-      apiKey: ''
-    })
+      apiKey: 'AIzaSyAEawAL61bejJOHlCJTf2TtEORJZ_VD-oQ'
+    }),
+    AgmDirectionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
