@@ -1,6 +1,7 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
-import { MapsAPILoader } from "@agm/core/services/maps-api-loader/maps-api-loader";
-import { AgmMap } from "@agm/core";
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from "@angular/core";
+import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { PlaceService } from '../services/place.service'
+import { PlaceResult } from '../models/PlaceResult'
 
 @Component({
   selector: 'app-map',
@@ -8,87 +9,103 @@ import { AgmMap } from "@agm/core";
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit{
-  title = "AGM";
+  title: string = 'AGM project';
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  address: string;
+  private geoCoder;
+  places: PlaceResult[];
+  placeResults: PlaceResult[];
 
-  lat: number = 47.472907;
-  lng: number = 19.053035;
-  zoom = 8;
-  agmMap: any;
-  bounds: google.maps.LatLngBounds;
-  searchBox: any;
-  markers: google.maps.Marker[];
-  icon: any;
+  @ViewChild('search', {static: false})
+  public searchElementRef: ElementRef;
 
-        @ViewChild("search", {static: false}) public searchElement: ElementRef;
-         places: any;
 
-  @ViewChild("agmMap", {static: false}) set content(map: AgmMap) {
-    if (map) {
-      map.mapReady.subscribe(map => {
-        this.agmMap = map;
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private placeService: PlaceService
+  ) { }
+
+
+  ngOnInit() {
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
+  }
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 8;
+        this.getAddress(this.latitude, this.longitude);
       });
     }
   }
 
-  constructor(private mapsAPILoader: MapsAPILoader, private NgZone: NgZone) {}
+  getPlacesFromService(lat: number, lng: number) {
 
-  ngOnInit() {
+    this.places = [];
+    this.placeResults = [];
 
-    this.mapsAPILoader.load().then(() => {
-      console.log(this.agmMap);
-      this.places = this.searchElement;
-      this.bounds = new google.maps.LatLngBounds();
-      this.searchBox = new google.maps.places.SearchBox(
-        this.searchElement.nativeElement
-      );
-      // this.agmMap.ControlPosition[google.maps.ControlPosition.TOP_LEFT].push(
-      //   this.searchElement.nativeElement
-      // );
-      // this.agmMap.addListener("bounds_changed", () => {
-      //   this.searchBox.setBounds(this.agmMap.getBounds());
-      // });
-      this.searchBox.addListener("places_changed", () => {
-        var places = this.searchBox.getPlaces();
-
-        if (places.length === 0) {
-          return;
-        }
-
-        // Clear out the old markers.
-        this.markers.forEach(marker => {
-          marker.setMap(null);
-        });
-        this.markers = [];
-        this.bounds = new google.maps.LatLngBounds();
-        places.forEach(place => {
-          if (!place.geometry) {
-            console.log("Returned place contains no geometry");
-            return;
-          }
-          this.icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
-          this.markers.push(
-            new google.maps.Marker({
-              map: this.agmMap,
-              icon: this.icon,
-              title: place.name,
-              position: place.geometry.location
-            })
-          );
-          if (place.geometry.viewport) {
-            // Only geocodes have viewport.
-            this.bounds.union(place.geometry.viewport);
-          } else {
-            this.bounds.extend(place.geometry.location);
-          }
-        });
-        this.agmMap.fitBounds(this.bounds);
-      });
+    this.placeService.getPlaces(lat, lng).subscribe(place => {
+      this.places = place.results;
+      this.placeResults = this.places;
+      console.log(this.placeResults);
     });
   }
+
+
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
+  }
+
+  getAddress(latitude, longitude) {
+    this.getPlacesFromService(latitude, longitude);
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
+  }
+
 }

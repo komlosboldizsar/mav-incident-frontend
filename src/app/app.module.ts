@@ -30,7 +30,8 @@ import { AboutComponent } from './about/about.component';
     MatIconModule,
     MatSliderModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAEawAL61bejJOHlCJTf2TtEORJZ_VD-oQ'
+      apiKey: 'AIzaSyAEawAL61bejJOHlCJTf2TtEORJZ_VD-oQ',
+      libraries: ['places']
     }),
     AgmDirectionModule
   ],

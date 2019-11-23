@@ -1,12 +1,19 @@
 <h1>{{ title }}</h1>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<div class="container">
 
-<input class="form-control mr-sm-3" type="text"
-placeholder="Search for Location" autocorrect="off" n
-autocapitalize="off"
-spellcheck="off" class="form-control" #search  id="pac-input"
-class="controls">
+  <div class="form-group">
+    <label>Enter address</label>
+    <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+  </div>
 
-<agm-map [latitude]="lat" [longitude]="lng" #agmMap
-[mapTypeId]="'roadmap'">
-<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
+  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+      (dragEnd)="markerDragEnd($event)"></agm-marker>
+    <agm-marker *ngFor="let place of placeResults" [latitude]="place.geometry.location.lat" [longitude]="place.geometry.location.lon"></agm-marker>
+  </agm-map>
+
+  <h5>Address: {{address}}</h5>
+  <div>Latitude: {{latitude}}</div>
+  <div>Longitude: {{longitude}}</div>
+</div>
