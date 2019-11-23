@@ -1,6 +1,12 @@
 <h1>{{ title }}</h1>
 
-<agm-map [latitude]="location.latitude" [longitude]="location.longitude" [zoom]="location.zoom" (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
-  <agm-marker *ngFor="let marker of location.markers" [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
-  <agm-direction [origin]="origin" [destination]="destination" [travelMode]="travelMode"></agm-direction>
+<input class="form-control mr-sm-3" type="text"
+placeholder="Search for Location" autocorrect="off" n
+autocapitalize="off"
+spellcheck="off" class="form-control" #search  id="pac-input"
+class="controls">
+
+<agm-map [latitude]="lat" [longitude]="lng" #agmMap
+[mapTypeId]="'roadmap'">
+<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 </agm-map>
