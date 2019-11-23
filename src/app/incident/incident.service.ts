@@ -14,4 +14,8 @@ export class IncidentService {
   public getIncidents(): Observable<Array<IncidentDTO>> {
     return this.http.get<Array<IncidentDTO>>(`${environment.baseBackendUrl}/incident`);
   }
+
+  public getIncidentsString(): Observable<string> {
+    return this.http.get<string>(`${environment.baseBackendUrl}/incident`);
+  }
 }

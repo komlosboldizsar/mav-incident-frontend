@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule, MatProgressSpinnerModule, MatCardModule } from '@angular/material';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 
@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { AboutComponent } from './about/about.component';
+import { IncidentModule } from './incident/incident.module';
 
 @NgModule({
   declarations: [
@@ -23,12 +24,15 @@ import { AboutComponent } from './about/about.component';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    IncidentModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
     MatIconModule,
     MatSliderModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAEawAL61bejJOHlCJTf2TtEORJZ_VD-oQ',
       libraries: ['places']

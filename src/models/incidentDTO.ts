@@ -1,8 +1,8 @@
 export interface IncidentDTO {
   title: string;
-  created: BigInteger;
-  updated: BigInteger;
-  processed: BigInteger;
+  created: Date;
+  updated: Date;
+  processed: Date;
   locations: Array<LocationDTO>;
   categories: Array<CategoryDTO>;
 }
