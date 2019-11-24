@@ -34,8 +34,9 @@
       <mat-card *ngFor="let incident of incidentsShown" style="margin-top:10px;">
         <mat-card-header>
           <mat-card-title>{{ incident.title }}</mat-card-title>
-          <mat-card-subtitle
-            >Megjelenés:
+          <mat-card-subtitle>
+            ID: {{incident.id}}
+            Megjelenés:
             {{ incident.created * 1000 | date: "yyyy.MM.dd HH:mm" }}, Utolsó
             frissítés: {{ incident.updated * 1000 | date: "yyyy.MM.dd HH:mm" }},
             Utolsó lekérdezés:
@@ -49,7 +50,7 @@
           >
         </mat-card-header>
         <mat-card-content>
-          <a mat-button (click)="this.updateIncident()">Ismételt lekérdezés</a>
+          <a mat-button (click)="this.updateIncident(incident)">Ismételt lekérdezés</a>
         </mat-card-content>
       </mat-card>
     </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GeocodeService } from '../services/geocode.service';
-import { Location } from '../models/Location';
+import { Location } from '../../models/location';
 import { SendtomapService } from '../services/sendtomap.service';
 
 @Component({

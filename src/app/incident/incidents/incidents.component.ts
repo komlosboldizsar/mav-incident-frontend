@@ -84,12 +84,12 @@ export class IncidentsComponent implements OnInit {
     });
   }
 
-  updateIncident() {
-    this.incidentService.id = 0;
-    this.incidentService.getUpdateIncident().subscribe(
+  updateIncident(incident: IncidentDTO) {
+    this.incidentService.postUpdateIncident().subscribe(
       result => {
-        this.incidents[this.incidentService.id] = result;
-        this.incidentsShown[this.incidentService.id] = this.incidents[this.incidentService.id];
+        console.log(result);
+        this.incidents = result;
+        this.incidentsShown = this.incidents;
       },
       error => {
         alert('Something went wrong, error: ');
@@ -129,6 +129,7 @@ export class IncidentsComponent implements OnInit {
             label: ''
           };
           const nothing: IncidentDTO = {
+            id: 0,
             title: 'Nothing found!',
             created: new Date(),
             updated: new Date(),
@@ -174,6 +175,7 @@ export class IncidentsComponent implements OnInit {
             label: ''
           };
           const nothing: IncidentDTO = {
+            id: 0,
             title: 'Nothing found!',
             created: new Date(),
             updated: new Date(),

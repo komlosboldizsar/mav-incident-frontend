@@ -1,4 +1,5 @@
 export interface IncidentDTO {
+  id: number;
   title: string;
   created: Date;
   updated: Date;

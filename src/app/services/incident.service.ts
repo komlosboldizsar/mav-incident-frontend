@@ -20,7 +20,9 @@ export class IncidentService {
     return this.http.get<string>(`${environment.baseBackendUrl}/incident`);
   }
 
-  public getUpdateIncident(): Observable<IncidentDTO> {
-    return this.http.get<IncidentDTO>(`${environment.baseBackendUrl}/incident/${this.id}`);
+  public postUpdateIncident(): Observable<Array<IncidentDTO>> {
+    this.http.post(`${environment.baseBackendUrl}/incident/${this.id}/refresh`, ``);
+    console.log("lol");
+    return this.http.get<Array<IncidentDTO>>(`${environment.baseBackendUrl}/incident`);
   }
 }
