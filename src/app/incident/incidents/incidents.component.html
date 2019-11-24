@@ -11,17 +11,27 @@
       <a mat-list-item (click)="this.sortPublish()"> Megjelenés </a>
       <a mat-list-item (click)="this.sortUpdate()"> Utolsó frissítés </a>
       <a mat-list-item (click)="this.sortProcessed()"> Utolsó lekérdezés </a>
-      <a mat-list-item> Hely (A-Z) </a>
-      <a mat-list-item> Kategória (A-Z) </a>
+      <mat-divider></mat-divider>
+      <a matSubheader><b>Keresés:</b></a>
+      <mat-divider></mat-divider>
+      <form style="padding: 13px;">
+          <mat-form-field>
+              <input matInput placeholder="Hely" (keyup)="this.onKeyPlace($event)">
+          </mat-form-field>
+          <p></p>
+          <mat-form-field>
+              <input matInput placeholder="Kategória" (keyup)="this.onKeyCategory($event)">
+          </mat-form-field>
+      </form>
       <mat-divider></mat-divider>
       <a mat-list-item matSubheader (click)="sidenav.toggle()"> Vissza </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="padding: 13px;">
+    <div style="padding: 13px; height: 88vh;">
       <mat-spinner *ngIf="incidents.length === 0"></mat-spinner>
 
-      <mat-card *ngFor="let incident of incidents" style="margin-top:10px;">
+      <mat-card *ngFor="let incident of incidentsShown" style="margin-top:10px;">
         <mat-card-header>
           <mat-card-title>{{ incident.title }}</mat-card-title>
           <mat-card-subtitle

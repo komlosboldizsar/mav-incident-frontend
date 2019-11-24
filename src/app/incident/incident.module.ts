@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IncidentRoutingModule } from './incident-routing.module';
 import { IncidentsComponent } from './incidents/incidents.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule, MatProgressSpinnerModule, MatCardModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule, MatProgressSpinnerModule, MatCardModule, MatFormFieldModule, MatInputModule  } from '@angular/material';
 import { DateFormatter } from './DateFormatter.pipe';
 
 
@@ -20,7 +20,9 @@ import { DateFormatter } from './DateFormatter.pipe';
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    MatSliderModule
+    MatSliderModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [IncidentsComponent]
 })
