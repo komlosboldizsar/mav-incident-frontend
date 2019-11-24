@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule, MatProgressSpinnerModule, MatCardModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule, MatProgressSpinnerModule, MatCardModule, MatSlideToggleModule } from '@angular/material';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 
@@ -34,6 +34,7 @@ import { GeocodeService } from './services/geocode.service';
     MatSliderModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAEawAL61bejJOHlCJTf2TtEORJZ_VD-oQ',
       libraries: ['places']

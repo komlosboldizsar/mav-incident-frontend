@@ -1,13 +1,21 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <h1>MÁV Infó</h1>
-    <span class="menu-spacer"></span>
-    <div>
-      <a mat-button [routerLink]="'/incidents'"> Incidensek </a>
-      <a mat-button [routerLink]="'/map'"> Térkép </a>
-      <a mat-button [routerLink]="'/about'"> Rólunk </a>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div [ngClass]="{'dark-theme': isDarkTheme | async}">
+  <div class="mat-app-background">
+    <div class="content">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+              <h1>MÁV Infó</h1>
+              <span class="menu-spacer"></span>
+              <div>
+                <a mat-button [routerLink]="'/incidents'"> Incidensek </a>
+                <a mat-button [routerLink]="'/map'"> Térkép </a>
+                <a mat-button [routerLink]="'/about'"> Rólunk </a>
+              </div>
+              <span class="fill-space"></span>
+              <mat-slide-toggle [checked]="isDarkTheme | async" labelPosition="before" (change)="toggleDarkTheme($event.checked)">Éjszakai mód</mat-slide-toggle>
+            </mat-toolbar-row>
+          </mat-toolbar>
 
-<router-outlet></router-outlet>
+          <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

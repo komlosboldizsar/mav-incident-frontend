@@ -3,7 +3,7 @@ import { MapsAPILoader } from '@agm/core';
 import { Observable, Subject, of } from 'rxjs';
 import { filter, catchError, tap, map, switchMap } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/internal/observable/fromPromise';
-import { Location } from '../models/Location';
+import { Location } from '../../models/location';
 
 declare var google: any;
 
