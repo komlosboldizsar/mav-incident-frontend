@@ -11,6 +11,7 @@ import { SendtomapService } from '../services/sendtomap.service';
 export class MapComponent implements OnInit{
   addresses: string[];
   locations: Location[];
+  loading: boolean;
 
   constructor(
     private geocodeService: GeocodeService,
@@ -36,10 +37,14 @@ export class MapComponent implements OnInit{
   }
 
   addressToCoordinates() {
+    this.loading = true;
+    this.addresses.push('Budapest');
+    this.addresses.push('Cegléd');
     console.log(this.addresses);
     this.addresses.forEach(e => {
       this.geocodeService.geocodeAddress(e).subscribe((location: Location) => {
         this.locations.push(location);
+        this.loading = false;
         this.ref.detectChanges();
       });
     });

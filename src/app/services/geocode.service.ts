@@ -19,7 +19,7 @@ export class GeocodeService {
   }
 
   private waitForMapsToLoad(): Observable<boolean> {
-    if(!this.geocoder) {
+    if (!this.geocoder) {
       return fromPromise(this.mapLoader.load())
       .pipe(
         tap(() => this.initGeocoder()),
@@ -35,8 +35,8 @@ export class GeocodeService {
       // filter(loaded => loaded),
       switchMap(() => {
         return new Observable(observer => {
-          this.geocoder.geocode({'address': location}, (results, status) => {
-            if (status == google.maps.GeocoderStatus.OK) {
+          this.geocoder.geocode({address: location}, (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
               console.log('Geocoding complete!');
               observer.next({
                 lat: results[0].geometry.location.lat(),
@@ -48,9 +48,9 @@ export class GeocodeService {
             }
             observer.complete();
           });
-        })
+        });
       })
-    )
+    );
   }
 
 }

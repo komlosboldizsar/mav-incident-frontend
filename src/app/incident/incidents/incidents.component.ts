@@ -84,9 +84,17 @@ export class IncidentsComponent implements OnInit {
     });
   }
 
-  submit() {
-    // alert('Searched for: ');
-    console.log();
+  updateIncident() {
+    this.incidentService.id = 0;
+    this.incidentService.getUpdateIncident().subscribe(
+      result => {
+        this.incidents[this.incidentService.id] = result;
+        this.incidentsShown[this.incidentService.id] = this.incidents[this.incidentService.id];
+      },
+      error => {
+        alert('Something went wrong, error: ');
+        console.log(error);
+      });
   }
 
   onKeyPlace(event: any) {

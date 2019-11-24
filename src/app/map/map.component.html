@@ -1,14 +1,15 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<div class="container">
+<div class="container" style="width: 100%; height: 100%;">
     <agm-map
-    [latitude]="location?.lat"
-    [longitude]="location?.lng"
-    [zoom]="8"
-    [disableDefaultUI]="false"
-    [zoomControl]="false">
-    <agm-marker
-        [latitude]="location?.lat"
-        [longitude]="location?.lng">
+    [latitude]="47.0255052"
+    [longitude]="19.4128202"
+    [zoom]="7"
+    [disableDefaultUI]="true"
+    [zoomControl]="true">
+    <agm-marker *ngFor="let loc of locations"
+        [latitude]="loc.lat"
+        [longitude]="loc.lng">
     </agm-marker>
   </agm-map>
+  <p *ngIf="loading">Loading...</p>
 </div>
