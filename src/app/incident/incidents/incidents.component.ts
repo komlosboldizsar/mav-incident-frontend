@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { IncidentService } from "../../services/incident.service";
-import { IncidentDTO, LocationDTO, CategoryDTO } from "src/models/incidentDTO";
+import { Component, OnInit } from '@angular/core';
+import { IncidentService } from '../../services/incident.service';
+import { IncidentDTO, LocationDTO, CategoryDTO } from 'src/models/incidentDTO';
 import { SendtomapService } from 'src/app/services/sendtomap.service';
 
 @Component({
-  selector: "app-incidents",
-  templateUrl: "./incidents.component.html",
-  styleUrls: ["./incidents.component.scss"]
+  selector: 'app-incidents',
+  templateUrl: './incidents.component.html',
+  styleUrls: ['./incidents.component.scss']
 })
 export class IncidentsComponent implements OnInit {
   incidents: Array<IncidentDTO>;
@@ -26,7 +26,7 @@ export class IncidentsComponent implements OnInit {
         this.incidentsShown = this.incidents;
       },
       error => {
-        alert("Something went wrong, error: ");
+        alert('Something went wrong, error: ');
         console.log(error);
       }
     );
@@ -85,22 +85,27 @@ export class IncidentsComponent implements OnInit {
   }
 
   submit() {
-    //alert('Searched for: ');
+    // alert('Searched for: ');
     console.log();
   }
 
   onKeyPlace(event: any) {
     const code = event.keyCode ? event.keyCode : event.which;
     if (code === 13) {
-      this.place = "";
+      this.place = '';
       this.place = event.target.value;
       console.log(this.place);
       const self = this;
       if (this.place.length === 0) {
         this.incidentsShown = this.incidents;
       } else {
+        // tslint:disable-next-line: only-arrow-functions
         this.incidentsShown = this.incidents.filter(function(a: IncidentDTO) {
-          if (self.place === a.locations.label) {
+          // tslint:disable-next-line: prefer-const
+          let labels: string[];
+          labels = [];
+          a.locations.forEach(e => labels.push(e.label));
+          if (labels.includes(self.place)) {
             return true;
           } else {
             return false;
@@ -109,19 +114,19 @@ export class IncidentsComponent implements OnInit {
         if (this.incidentsShown.length <= 0) {
           const loc: LocationDTO = {
             id: null,
-            label: ""
+            label: ''
           };
           const cat: CategoryDTO = {
             id: null,
-            label: ""
+            label: ''
           };
           const nothing: IncidentDTO = {
-            title: "Nothing found!",
+            title: 'Nothing found!',
             created: new Date(),
             updated: new Date(),
             processed: new Date(),
-            locations: loc,
-            categories: cat
+            locations: loc[0],
+            categories: cat[0]
           };
           this.incidentsShown.push(nothing);
         }
@@ -132,15 +137,20 @@ export class IncidentsComponent implements OnInit {
   onKeyCategory(event: any) {
     const code = event.keyCode ? event.keyCode : event.which;
     if (code === 13) {
-      this.category = "";
+      this.category = '';
       this.category = event.target.value;
       console.log(this.category);
       const self = this;
       if (this.category.length === 0) {
         this.incidentsShown = this.incidents;
       } else {
+        // tslint:disable-next-line: only-arrow-functions
         this.incidentsShown = this.incidents.filter(function(a: IncidentDTO) {
-          if (self.category === a.categories.label) {
+          // tslint:disable-next-line: prefer-const
+          let labels: string[];
+          labels = [];
+          a.categories.forEach(e => labels.push(e.label));
+          if (labels.includes(self.category)) {
             return true;
           } else {
             return false;
@@ -149,19 +159,19 @@ export class IncidentsComponent implements OnInit {
         if (this.incidentsShown.length <= 0) {
           const loc: LocationDTO = {
             id: null,
-            label: ""
+            label: ''
           };
           const cat: CategoryDTO = {
             id: null,
-            label: ""
+            label: ''
           };
           const nothing: IncidentDTO = {
-            title: "Nothing found!",
+            title: 'Nothing found!',
             created: new Date(),
             updated: new Date(),
             processed: new Date(),
-            locations: loc,
-            categories: cat
+            locations: loc[0],
+            categories: cat[0]
           };
           this.incidentsShown.push(nothing);
         }

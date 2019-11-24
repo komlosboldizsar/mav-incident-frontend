@@ -20,7 +20,7 @@ export class MapComponent implements OnInit{
     this.locations = [];
     this.addresses = [];
     this.sendtomapService.sendData$.subscribe((data) => {
-      data.array.forEach(element => {
+      data.forEach(element => {
         this.locations.push(element.locations.label);
       });
     });

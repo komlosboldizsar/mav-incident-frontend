@@ -3,8 +3,8 @@ export interface IncidentDTO {
   created: Date;
   updated: Date;
   processed: Date;
-  locations: LocationDTO;
-  categories: CategoryDTO;
+  locations: Array<LocationDTO>;
+  categories: Array<CategoryDTO>;
 }
 
 export interface LocationDTO {
