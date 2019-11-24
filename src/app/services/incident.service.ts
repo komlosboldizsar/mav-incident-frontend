@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class IncidentService {
-  id: number;
 
   constructor(private http: HttpClient) {}
 
@@ -20,9 +19,7 @@ export class IncidentService {
     return this.http.get<string>(`${environment.baseBackendUrl}/incident`);
   }
 
-  public postUpdateIncident(): Observable<Array<IncidentDTO>> {
-    this.http.post(`${environment.baseBackendUrl}/incident/${this.id}/refresh`, ``);
-    console.log("lol");
-    return this.http.get<Array<IncidentDTO>>(`${environment.baseBackendUrl}/incident`);
+  public postUpdateIncident(id: number): Observable<IncidentDTO> {
+    return this.http.post<IncidentDTO>(`${environment.baseBackendUrl}/incident/${id}/refresh`, ``);
   }
 }

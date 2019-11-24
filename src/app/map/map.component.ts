@@ -42,10 +42,12 @@ export class MapComponent implements OnInit{
     this.addresses.push('Cegléd');
     console.log(this.addresses);
     this.addresses.forEach(e => {
-      this.geocodeService.geocodeAddress(e).subscribe((location: Location) => {
-        this.locations.push(location);
-        this.loading = false;
-        this.ref.detectChanges();
+      this.geocodeService.waitForMapsToLoad().subscribe( () => {
+        this.geocodeService.geocodeAddress(e).subscribe((location: Location) => {
+          this.locations.push(location);
+          this.loading = false;
+          this.ref.detectChanges();
+        });
       });
     });
   }

@@ -6,14 +6,15 @@ export interface IncidentDTO {
   processed: Date;
   locations: Array<LocationDTO>;
   categories: Array<CategoryDTO>;
+  content?: string;
 }
 
 export interface LocationDTO {
   id: BigInteger;
-  label: string;
+  name: string;
 }
 
 export interface CategoryDTO {
   id: BigInteger;
-  label: string;
+  name: string;
 }

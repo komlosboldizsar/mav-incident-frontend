@@ -8,49 +8,63 @@
       <a matSubheader><b>Rendezési szempont:</b></a>
       <mat-divider></mat-divider>
       <a mat-list-item (click)="this.sortTitle()"> Név (A-Z) </a>
-      <a mat-list-item (click)="this.sortPublish()"> Megjelenés </a>
-      <a mat-list-item (click)="this.sortUpdate()"> Utolsó frissítés </a>
-      <a mat-list-item (click)="this.sortProcessed()"> Utolsó lekérdezés </a>
+      <a mat-list-item (click)="this.sortPublish()"> Létrehozva </a>
+      <a mat-list-item (click)="this.sortUpdate()"> Módosítva </a>
+      <a mat-list-item (click)="this.sortProcessed()"> Frissítve </a>
       <mat-divider></mat-divider>
       <a matSubheader><b>Keresés:</b></a>
       <mat-divider></mat-divider>
       <form style="padding: 13px;">
-          <mat-form-field>
-              <input matInput placeholder="Hely" (keyup)="this.onKeyPlace($event)">
-          </mat-form-field>
-          <p></p>
-          <mat-form-field>
-              <input matInput placeholder="Kategória" (keyup)="this.onKeyCategory($event)">
-          </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Hely"
+            (keyup)="this.onKeyPlace($event)"
+          />
+        </mat-form-field>
+        <p></p>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Kategória"
+            (keyup)="this.onKeyCategory($event)"
+          />
+        </mat-form-field>
       </form>
       <mat-divider></mat-divider>
       <a mat-list-item matSubheader (click)="sidenav.toggle()"> Vissza </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="padding: 13px; height: 88vh;">
+    <div style="padding: 13px; height: calc(100vh - 130px);">
       <mat-spinner *ngIf="incidents.length === 0"></mat-spinner>
 
-      <mat-card *ngFor="let incident of incidentsShown" style="margin-top:10px;">
+      <mat-card
+        *ngFor="let incident of incidentsShown"
+        style="margin-top:10px;"
+      >
         <mat-card-header>
           <mat-card-title>{{ incident.title }}</mat-card-title>
           <mat-card-subtitle>
-            ID: {{incident.id}}
-            Megjelenés:
-            {{ incident.created * 1000 | date: "yyyy.MM.dd HH:mm" }}, Utolsó
-            frissítés: {{ incident.updated * 1000 | date: "yyyy.MM.dd HH:mm" }},
-            Utolsó lekérdezés:
+            ID: {{ incident.id }}
+            Létrehozva:
+            {{ incident.created * 1000 | date: "yyyy.MM.dd HH:mm" }}, Módosítva:
+            {{ incident.updated * 1000 | date: "yyyy.MM.dd HH:mm" }}, Frissítve:
             {{
               incident.processed * 1000 | date: "yyyy.MM.dd HH:mm"
             }}</mat-card-subtitle
           >
-          <mat-card-subtitle
-            >Hely: {{ incident.locations }}, Kategória:
-            {{ incident.categories }}</mat-card-subtitle
-          >
+          <mat-card-subtitle *ngFor="let location of incident.locations">
+            Hely: {{ location.name }}
+          </mat-card-subtitle>
+          <mat-card-subtitle *ngFor="let category of incident.categories">
+            Kategória: {{ category.name }}
+          </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <a mat-button (click)="this.updateIncident(incident)">Ismételt lekérdezés</a>
+          <a mat-raised-button (click)="this.updateIncident(incident)"
+            >Ismételt lekérdezés</a
+          >
         </mat-card-content>
       </mat-card>
     </div>

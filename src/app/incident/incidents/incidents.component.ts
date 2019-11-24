@@ -24,6 +24,7 @@ export class IncidentsComponent implements OnInit {
       result => {
         this.incidents = result;
         this.incidentsShown = this.incidents;
+        console.log(this.incidentsShown);
       },
       error => {
         alert('Something went wrong, error: ');
@@ -85,10 +86,10 @@ export class IncidentsComponent implements OnInit {
   }
 
   updateIncident(incident: IncidentDTO) {
-    this.incidentService.postUpdateIncident().subscribe(
+    this.incidentService.postUpdateIncident(incident.id).subscribe(
       result => {
         console.log(result);
-        this.incidents = result;
+        this.incidents[this.incidents.findIndex(element => element.id === result.id)] = result;
         this.incidentsShown = this.incidents;
       },
       error => {
@@ -112,7 +113,7 @@ export class IncidentsComponent implements OnInit {
           // tslint:disable-next-line: prefer-const
           let labels: string[];
           labels = [];
-          a.locations.forEach(e => labels.push(e.label));
+          a.locations.forEach(e => labels.push(e.name));
           if (labels.includes(self.place)) {
             return true;
           } else {
@@ -122,11 +123,11 @@ export class IncidentsComponent implements OnInit {
         if (this.incidentsShown.length <= 0) {
           const loc: LocationDTO = {
             id: null,
-            label: ''
+            name: ''
           };
           const cat: CategoryDTO = {
             id: null,
-            label: ''
+            name: ''
           };
           const nothing: IncidentDTO = {
             id: 0,
@@ -158,7 +159,7 @@ export class IncidentsComponent implements OnInit {
           // tslint:disable-next-line: prefer-const
           let labels: string[];
           labels = [];
-          a.categories.forEach(e => labels.push(e.label));
+          a.categories.forEach(e => labels.push(e.name));
           if (labels.includes(self.category)) {
             return true;
           } else {
@@ -168,11 +169,11 @@ export class IncidentsComponent implements OnInit {
         if (this.incidentsShown.length <= 0) {
           const loc: LocationDTO = {
             id: null,
-            label: ''
+            name: ''
           };
           const cat: CategoryDTO = {
             id: null,
-            label: ''
+            name: ''
           };
           const nothing: IncidentDTO = {
             id: 0,
