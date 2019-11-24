@@ -8,7 +8,6 @@
               <div>
                 <a mat-button [routerLink]="'/incidents'"> Incidensek </a>
                 <a mat-button [routerLink]="'/map'"> Térkép </a>
-                <a mat-button [routerLink]="'/about'"> Rólunk </a>
               </div>
               <span class="fill-space"></span>
               <mat-slide-toggle [checked]="isDarkTheme | async" labelPosition="before" (change)="toggleDarkTheme($event.checked)">Éjszakai mód</mat-slide-toggle>
