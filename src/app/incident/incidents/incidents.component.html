@@ -30,6 +30,18 @@
             (keyup)="this.onKeyCategory($event)"
           />
         </mat-form-field>
+        <p></p>
+        <mat-form-field>
+          <input matInput [matDatepicker] = "picker" placeholder = "-tól" (dateChange)="this.onKeyFrom($event)">
+          <mat-datepicker-toggle matSuffix [for] = "picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+       </mat-form-field>
+       <p></p>
+       <mat-form-field>
+       <input matInput [matDatepicker] = "picker2" placeholder = "-ig" (keyup)="this.onKeyUntil($event)">
+          <mat-datepicker-toggle matSuffix [for] = "picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
       </form>
       <mat-divider></mat-divider>
       <a mat-list-item matSubheader (click)="sidenav.toggle()"> Vissza </a>
@@ -46,7 +58,6 @@
         <mat-card-header>
           <mat-card-title>{{ incident.title }}</mat-card-title>
           <mat-card-subtitle>
-            ID: {{ incident.id }}
             Létrehozva:
             {{ incident.created * 1000 | date: "yyyy.MM.dd HH:mm" }}, Módosítva:
             {{ incident.updated * 1000 | date: "yyyy.MM.dd HH:mm" }}, Frissítve:
@@ -70,6 +81,10 @@
         <mat-card-content>
           <a mat-raised-button (click)="this.updateIncident(incident)"
             >Ismételt lekérdezés</a
+          >
+          &nbsp;
+          <a mat-raised-button href="https://www.mavcsoport.hu/node/{{incident.id}}" target="_blank"
+            >Részletek</a
           >
         </mat-card-content>
       </mat-card>

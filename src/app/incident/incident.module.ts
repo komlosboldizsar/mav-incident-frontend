@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { IncidentRoutingModule } from './incident-routing.module';
 import { IncidentsComponent } from './incidents/incidents.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule, MatProgressSpinnerModule, MatCardModule, MatFormFieldModule, MatInputModule  } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSliderModule, MatProgressSpinnerModule, MatCardModule, MatFormFieldModule, MatDatepickerModule, MatInputModule, MatNativeDateModule  } from '@angular/material';
 import { DateFormatter } from './DateFormatter.pipe';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -22,7 +23,11 @@ import { DateFormatter } from './DateFormatter.pipe';
     MatButtonModule,
     MatSliderModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [IncidentsComponent]
 })

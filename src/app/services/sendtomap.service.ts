@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { IncidentDTO } from 'src/models/incidentDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SendtomapService {
-  sendData$: Observable<any>;
-  private sendDataSubject = new Subject<any>();
+  //sendData$: Observable<any>;
+  private sendDataSubject = new BehaviorSubject<any>([]);
 
-  constructor() {
-      this.sendData$ = this.sendDataSubject.asObservable();
+  constructor() {}
+
+  getData() {
+    return this.sendDataSubject.asObservable();
   }
 
   sendData(data: Array<IncidentDTO>) {
-      console.log("sendData");
-      console.log(data);
       this.sendDataSubject.next(data);
   }
 

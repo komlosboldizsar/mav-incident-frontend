@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { IncidentModule } from './incident/incident.module';
 import { GeocodeService } from './services/geocode.service';
-import { IncidentService } from './services/incident.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,7 @@ import { IncidentService } from './services/incident.service';
     }),
     AgmDirectionModule
   ],
-  providers: [GeocodeService, IncidentService],
+  providers: [GeocodeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

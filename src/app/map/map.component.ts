@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { GeocodeService } from "../services/geocode.service";
 import { Location } from "../../models/location";
 import { SendtomapService } from "../services/sendtomap.service";
+import { delay } from "rxjs/operators";
 
 @Component({
   selector: "app-map",
@@ -19,25 +20,24 @@ export class MapComponent implements OnInit {
     private sendtomapService: SendtomapService
   ) {
     this.loading = true;
-    this.waitForData();
+    //this.waitForData();
   }
 
   waitForData() {
-    this.sendtomapService.sendData$.subscribe(data => {
-      console.log(data);
+
+  }
+
+  ngOnInit() {
+    this.sendtomapService.getData().subscribe(data => {
+
       data.forEach(element => {
         element.locations.forEach(n => {
           this.addresses.push(n.name);
         });
       });
-      console.log(this.addresses);
       this.loading = false;
+      this.showLocation();
     });
-  }
-
-  ngOnInit() {
-    this.showLocation();
-    console.log(this.addresses);
   }
 
   showLocation() {
@@ -48,16 +48,14 @@ export class MapComponent implements OnInit {
     this.loading = true;
     //this.addresses.push('Budapest');
     //this.addresses.push('Cegléd');
-    console.log(this.addresses);
     this.addresses.forEach(e => {
-      this.geocodeService.waitForMapsToLoad().subscribe(() => {
+      this.geocodeService.waitForMapsToLoad().pipe(delay(10)).subscribe(() => {
         this.geocodeService
           .geocodeAddress(e)
           .subscribe((location: Location) => {
             this.locations.push(location);
-            console.log(this.locations);
             this.loading = false;
-            this.ref.detectChanges();
+            //this.ref.detectChanges();
           });
       });
     });
