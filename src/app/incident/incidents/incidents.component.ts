@@ -16,7 +16,6 @@ export class IncidentsComponent implements OnInit {
 
   constructor(private incidentService: IncidentService, private sendtomapService: SendtomapService) {
     this.incidents = [];
-    this.sendtomapService.sendData(this.incidents);
   }
 
   ngOnInit() {
@@ -25,6 +24,7 @@ export class IncidentsComponent implements OnInit {
         this.incidents = result;
         this.incidentsShown = this.incidents;
         console.log(this.incidentsShown);
+        this.sendtomapService.sendData(this.incidentsShown);
       },
       error => {
         alert('Something went wrong, error: ');

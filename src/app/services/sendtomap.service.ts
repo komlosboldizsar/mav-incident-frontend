@@ -14,6 +14,7 @@ export class SendtomapService {
   }
 
   sendData(data: Array<IncidentDTO>) {
+      console.log("sendData");
       console.log(data);
       this.sendDataSubject.next(data);
   }

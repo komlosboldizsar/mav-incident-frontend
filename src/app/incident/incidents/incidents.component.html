@@ -54,11 +54,17 @@
               incident.processed * 1000 | date: "yyyy.MM.dd HH:mm"
             }}</mat-card-subtitle
           >
-          <mat-card-subtitle *ngFor="let location of incident.locations">
-            Hely: {{ location.name }}
+          <mat-card-subtitle>
+            Hely:
+            <a *ngFor="let location of incident.locations; let isLast = last"
+              >{{ location.name }}{{ isLast ? "" : ", " }}</a
+            >
           </mat-card-subtitle>
-          <mat-card-subtitle *ngFor="let category of incident.categories">
-            Kategória: {{ category.name }}
+          <mat-card-subtitle>
+            Kategória:
+            <a *ngFor="let category of incident.categories; let isLast = last"
+              >{{ category.name }}{{ isLast ? "" : ", " }}</a
+            >
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
